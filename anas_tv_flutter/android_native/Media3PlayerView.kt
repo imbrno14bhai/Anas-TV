@@ -225,17 +225,16 @@ private object Media3SharedHelper {
     }
 
     /**
-     * Restores Media3's adaptive video track selection (Auto mode).
-     *
-     * The previous implementation selected one highest-resolution track and
-     * pinned playback to it. That prevented ABR from stepping down when the
-     * network or device decoder could not sustain the highest rendition.
+     * Uses the highest supported video bitrate as the default quality.
+     * A manually selected quality is preserved by the player listener flag.
      */
     fun selectHighestVideoTrack(exo: ExoPlayer?) {
         if (exo == null) return
         exo.trackSelectionParameters = exo.trackSelectionParameters.buildUpon()
             .clearOverridesOfType(C.TRACK_TYPE_VIDEO)
-            .setForceHighestSupportedBitrate(false)
+            .setForceHighestSupportedBitrate(true)
+            .setMaxVideoSize(Int.MAX_VALUE, Int.MAX_VALUE)
+            .setMaxVideoBitrate(Int.MAX_VALUE)
             .build()
     }
 
