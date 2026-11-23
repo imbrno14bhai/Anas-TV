@@ -70,10 +70,10 @@ jobs:
           s = re.sub(r'(?m)^\s*applicationId\s*=?\s*["\'][^"\']+["\']',
                      '        applicationId = "com.anas.tv"', s)
           deps = [
-              '    implementation("androidx.media3:media3-exoplayer:1.6.1")',
-              '    implementation("androidx.media3:media3-exoplayer-dash:1.6.1")',
-              '    implementation("androidx.media3:media3-exoplayer-hls:1.6.1")',
-              '    implementation("androidx.media3:media3-ui:1.6.1")',
+              '    implementation("androidx.media3:media3-exoplayer:1.11.1")',
+              '    implementation("androidx.media3:media3-exoplayer-dash:1.11.1")',
+              '    implementation("androidx.media3:media3-exoplayer-hls:1.11.1")',
+              '    implementation("androidx.media3:media3-ui:1.11.1")',
           ]
           if "androidx.media3:media3-exoplayer:" not in s:
               block = "dependencies {\n" + "\n".join(deps) + "\n"
