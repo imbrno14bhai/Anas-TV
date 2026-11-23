@@ -1,6 +1,0 @@
-{
-  "name": "JioTV Guide",
-  "description": "Live TV channel directory and 7-day EPG schedule guide powered by JioTV web and CDN APIs.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
