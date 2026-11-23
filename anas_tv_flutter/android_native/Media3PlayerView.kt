@@ -166,11 +166,6 @@ private object Media3SharedHelper {
             )
         }
 
-        exoPlayer.trackSelectionParameters = exoPlayer.trackSelectionParameters.buildUpon()
-            .setForceHighestSupportedBitrate(true)
-            .setMaxVideoSize(Int.MAX_VALUE, Int.MAX_VALUE)
-            .setMaxVideoBitrate(Int.MAX_VALUE)
-            .build()
         exoPlayer.setMediaItem(itemBuilder.build())
         return exoPlayer
     }
@@ -229,47 +224,18 @@ private object Media3SharedHelper {
         exo.trackSelectionParameters = builder.build()
     }
 
+    /**
+     * Restores Media3's adaptive video track selection (Auto mode).
+     *
+     * The previous implementation selected one highest-resolution track and
+     * pinned playback to it. That prevented ABR from stepping down when the
+     * network or device decoder could not sustain the highest rendition.
+     */
     fun selectHighestVideoTrack(exo: ExoPlayer?) {
         if (exo == null) return
-        var bestGroup: androidx.media3.common.Tracks.Group? = null
-        var bestIndex = -1
-        var bestHeight = -1
-        var bestWidth = -1
-        var bestBitrate = -1
-
-        for (group in exo.currentTracks.groups) {
-            if (group.type != C.TRACK_TYPE_VIDEO) continue
-            for (i in 0 until group.length) {
-                if (!group.isTrackSupported(i)) continue
-                val fmt = group.getTrackFormat(i)
-                val h = if (fmt.height > 0) fmt.height else 0
-                val w = if (fmt.width > 0) fmt.width else 0
-                val br = if (fmt.bitrate > 0) fmt.bitrate else 0
-                val isBetter = h > bestHeight ||
-                    (h == bestHeight && w > bestWidth) ||
-                    (h == bestHeight && w == bestWidth && br > bestBitrate)
-                if (isBetter) {
-                    bestGroup = group
-                    bestIndex = i
-                    bestHeight = h
-                    bestWidth = w
-                    bestBitrate = br
-                }
-            }
-        }
-
-        val targetGroup = bestGroup ?: return
-        if (bestIndex < 0) return
-
-        val existing = exo.trackSelectionParameters.overrides[targetGroup.mediaTrackGroup]
-        if (existing != null && existing.trackIndices.size == 1 && existing.trackIndices[0] == bestIndex) {
-            return
-        }
-
         exo.trackSelectionParameters = exo.trackSelectionParameters.buildUpon()
             .clearOverridesOfType(C.TRACK_TYPE_VIDEO)
             .setForceHighestSupportedBitrate(false)
-            .addOverride(TrackSelectionOverride(targetGroup.mediaTrackGroup, bestIndex))
             .build()
     }
 
