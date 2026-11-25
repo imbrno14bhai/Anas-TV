@@ -1,4 +1,4 @@
-package com.anas.tv
+package com.plustv.app
 
 import android.app.UiModeManager
 import android.content.Context
@@ -30,11 +30,11 @@ class MainActivity : FlutterActivity() {
         )
 
         flutterEngine.platformViewsController.registry.registerViewFactory(
-            "anas_tv/media3_player",
+            "plustv/media3_player",
             Media3PlayerFactory(messenger)
         )
 
-        MethodChannel(messenger, "anas_tv/device").setMethodCallHandler { call, result ->
+        MethodChannel(messenger, "plustv/device").setMethodCallHandler { call, result ->
             when (call.method) {
                 "isTv" -> {
                     val uiMode = getSystemService(Context.UI_MODE_SERVICE) as? UiModeManager
