@@ -1,5 +1,5 @@
-name: anas_tv
-description: Premium live TV homepage for Android mobile and Android TV.
+name: plustv
+description: PlusTV Flutter app with AnasTV interface and native Media3 playback.
 publish_to: "none"
 version: 1.0.0+1
 
