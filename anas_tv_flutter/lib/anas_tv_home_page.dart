@@ -4199,7 +4199,10 @@ class _ChannelCardState extends State<_ChannelCard> {
       final h = box.maxHeight;
       final logoSize = math.min(w * 0.68, h * 0.65);
       final nameSize = (w * 0.13).clamp(9.0, 16.0).toDouble();
-      return AnimatedScale(
+      return Material(
+        color: Colors.transparent,
+        elevation: showTvFocus ? 24 : 0,
+        child: AnimatedScale(
         scale: showTvFocus ? 1.16 : 1.0,
         duration: const Duration(milliseconds: 85),
         curve: Curves.easeOut,
@@ -4278,6 +4281,7 @@ class _ChannelCardState extends State<_ChannelCard> {
               ),
             ),
           ),
+        ),
         ),
       );
     });
