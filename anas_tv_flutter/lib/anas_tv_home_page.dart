@@ -10,15 +10,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
-class AnasTvApp extends StatefulWidget {
-  const AnasTvApp({super.key});
+class PlusTvApp extends StatefulWidget {
+  const PlusTvApp({super.key});
 
   @override
-  State<AnasTvApp> createState() => _AnasTvAppState();
+  State<PlusTvApp> createState() => _PlusTvAppState();
 }
 
-class _AnasTvAppState extends State<AnasTvApp> {
-  static const _deviceChannel = MethodChannel('anas_tv/device');
+class _PlusTvAppState extends State<PlusTvApp> {
+  static const _deviceChannel = MethodChannel('plustv/device');
   bool _isTv = false;
 
   @override
@@ -51,7 +51,7 @@ class _AnasTvAppState extends State<AnasTvApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'AnasTV',
+        title: 'PlusTV',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.dark,
         darkTheme: ThemeData(
@@ -67,7 +67,7 @@ class _AnasTvAppState extends State<AnasTvApp> {
           ),
           scaffoldBackgroundColor: const Color(0xFF050505),
         ),
-        home: AnasTvHomePage(isTv: _isTv),
+        home: PlusTvHomePage(isTv: _isTv),
       );
 }
 
@@ -676,16 +676,16 @@ class _BrandCircularLoader extends StatelessWidget {
   }
 }
 
-class AnasTvHomePage extends StatefulWidget {
+class PlusTvHomePage extends StatefulWidget {
   final bool isTv;
 
-  const AnasTvHomePage({super.key, required this.isTv});
+  const PlusTvHomePage({super.key, required this.isTv});
 
   @override
-  State<AnasTvHomePage> createState() => _AnasTvHomePageState();
+  State<PlusTvHomePage> createState() => _PlusTvHomePageState();
 }
 
-class _AnasTvHomePageState extends State<AnasTvHomePage> {
+class _PlusTvHomePageState extends State<PlusTvHomePage> {
   static const categories = <int, String>{
     0: 'All',
     5: 'Entertainment',
@@ -770,7 +770,7 @@ class _AnasTvHomePageState extends State<AnasTvHomePage> {
   }
 
   @override
-  void didUpdateWidget(covariant AnasTvHomePage oldWidget) {
+  void didUpdateWidget(covariant PlusTvHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!oldWidget.isTv && widget.isTv && !loading && error == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1422,7 +1422,7 @@ class _AnasTvHomePageState extends State<AnasTvHomePage> {
         .push(PageRouteBuilder<void>(
           transitionDuration: widget.isTv ? Duration.zero : const Duration(milliseconds: 220),
           reverseTransitionDuration: widget.isTv ? Duration.zero : const Duration(milliseconds: 180),
-          pageBuilder: (_, __, ___) => AnasTvSearchScreen(channels: allChannels, isTv: widget.isTv),
+          pageBuilder: (_, __, ___) => PlusTvSearchScreen(channels: allChannels, isTv: widget.isTv),
           transitionsBuilder: widget.isTv
               ? (_, __, ___, child) => child
               : (_, animation, __, child) => SlideTransition(
@@ -1451,7 +1451,7 @@ class _AnasTvHomePageState extends State<AnasTvHomePage> {
         .push(PageRouteBuilder<void>(
           transitionDuration: widget.isTv ? Duration.zero : const Duration(milliseconds: 180),
           reverseTransitionDuration: Duration.zero,
-          pageBuilder: (_, __, ___) => AnasTvPlayerScreen(
+          pageBuilder: (_, __, ___) => PlusTvPlayerScreen(
             channels: channels,
             allChannels: allChannels,
             initialIndex: safeIdx,
@@ -1726,21 +1726,21 @@ class _FocusSearchGridIntent extends Intent {
   const _FocusSearchGridIntent();
 }
 
-class AnasTvSearchScreen extends StatefulWidget {
+class PlusTvSearchScreen extends StatefulWidget {
   final List<TvChannel> channels;
   final bool isTv;
 
-  const AnasTvSearchScreen({
+  const PlusTvSearchScreen({
     super.key,
     required this.channels,
     required this.isTv,
   });
 
   @override
-  State<AnasTvSearchScreen> createState() => _AnasTvSearchScreenState();
+  State<PlusTvSearchScreen> createState() => _PlusTvSearchScreenState();
 }
 
-class _AnasTvSearchScreenState extends State<AnasTvSearchScreen> {
+class _PlusTvSearchScreenState extends State<PlusTvSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   late final FocusNode _searchFocus;
   final ScrollController _gridScroll = ScrollController();
@@ -1919,7 +1919,7 @@ class _AnasTvSearchScreenState extends State<AnasTvSearchScreen> {
         .push(PageRouteBuilder<void>(
           transitionDuration: widget.isTv ? Duration.zero : const Duration(milliseconds: 180),
           reverseTransitionDuration: Duration.zero,
-          pageBuilder: (_, __, ___) => AnasTvPlayerScreen(
+          pageBuilder: (_, __, ___) => PlusTvPlayerScreen(
             channels: channels,
             allChannels: widget.channels,
             initialIndex: safeIdx,
@@ -2424,7 +2424,7 @@ class _EpgService {
       try {
         final url = 'https://jiotv.data.cdn.jio.com/apis/v1.3/getepg/get?channel_id=$cid&offset=$offset';
         final res = await http
-            .get(Uri.parse(url), headers: _AnasTvHomePageState.headers)
+            .get(Uri.parse(url), headers: _PlusTvHomePageState.headers)
             .timeout(const Duration(seconds: 6));
 
         if (res.statusCode != 200 || res.body.trim().isEmpty) {
@@ -2491,13 +2491,13 @@ class _EpgService {
   }
 }
 
-class AnasTvPlayerScreen extends StatefulWidget {
+class PlusTvPlayerScreen extends StatefulWidget {
   final List<TvChannel> channels;
   final List<TvChannel>? allChannels;
   final int initialIndex;
   final bool isTv;
 
-  const AnasTvPlayerScreen({
+  const PlusTvPlayerScreen({
     super.key,
     required this.channels,
     this.allChannels,
@@ -2506,17 +2506,17 @@ class AnasTvPlayerScreen extends StatefulWidget {
   });
 
   @override
-  State<AnasTvPlayerScreen> createState() => _AnasTvPlayerScreenState();
+  State<PlusTvPlayerScreen> createState() => _PlusTvPlayerScreenState();
 }
 
 enum _StbPickerKind { audio, quality, stretch }
 
-class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
+class _PlusTvPlayerScreenState extends State<PlusTvPlayerScreen> {
   static const List<Shadow> _textShadows = [
     Shadow(color: Color(0xCC000000), blurRadius: 2, offset: Offset(0, 1)),
   ];
-  static const MethodChannel _texChannel = MethodChannel('anas_tv/texture_player');
-  static const MethodChannel _deviceChannel = MethodChannel('anas_tv/device');
+  static const MethodChannel _texChannel = MethodChannel('plustv/texture_player');
+  static const MethodChannel _deviceChannel = MethodChannel('plustv/device');
 
   final FocusNode _playerFocus = FocusNode();
 
@@ -2536,7 +2536,7 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
   bool _optionsMode = false;
   int _selectedOptionIdx = 0;
 
-  bool _useSecurePlatformView = false;
+  bool _useSecurePlatformView = true;
   int? _textureId;
   double _videoWidth = 16;
   double _videoHeight = 9;
@@ -2588,7 +2588,6 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
       if (mounted) setState(() => _now = DateTime.now());
     });
 
-    _initTextureChannel();
     _loadPreviewAndNeighbors(_previewIndex, immediateFetch: true);
     _startChannelStream(_playingIndex);
     _scheduleBannerAutoHide();
@@ -2842,7 +2841,8 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
       final resolved = await StreamResolver.resolve(target);
       if (!mounted || reqId != _playRequestSeq) return;
       _resolved = resolved;
-      final needsSecureSurface = resolved.drmLicenseUrl.isNotEmpty;
+      // PlusTV routes every stream through the same native Media3 PlayerView used by the reference APK.
+      final needsSecureSurface = true;
       if (_useSecurePlatformView != needsSecureSurface) {
         if (needsSecureSurface) {
           await _texChannel.invokeMethod('stop').catchError((_) {});
@@ -2863,7 +2863,7 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
 
   void _created(int id) {
     if (_platformChannel != null) return;
-    final ch = MethodChannel('anas_tv/media3_player_$id');
+    final ch = MethodChannel('plustv/media3_player_$id');
     _platformChannel = ch;
     ch.setMethodCallHandler(_onNativePlayerCall);
     ch.invokeMethod('setResizeMode', _resizeMode);
@@ -3451,7 +3451,7 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
                   child: _useSecurePlatformView
                       ? RepaintBoundary(
                           child: PlatformViewLink(
-                            viewType: 'anas_tv/media3_player',
+                            viewType: 'plustv/media3_player',
                             surfaceFactory: (context, controller) => AndroidViewSurface(
                               controller: controller as AndroidViewController,
                               gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
@@ -3460,7 +3460,7 @@ class _AnasTvPlayerScreenState extends State<AnasTvPlayerScreen> {
                             onCreatePlatformView: (params) {
                               return PlatformViewsService.initExpensiveAndroidView(
                                 id: params.id,
-                                viewType: 'anas_tv/media3_player',
+                                viewType: 'plustv/media3_player',
                                 layoutDirection: TextDirection.ltr,
                                 creationParams: const <String, dynamic>{},
                                 creationParamsCodec: const StandardMessageCodec(),
