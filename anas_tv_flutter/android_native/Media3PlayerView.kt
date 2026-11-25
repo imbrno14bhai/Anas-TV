@@ -1,4 +1,4 @@
-package com.anas.tv
+package com.plustv.app
 
 import android.app.Activity
 import android.content.Context
@@ -330,7 +330,7 @@ class TextureMedia3Player(
     private val textureRegistry: TextureRegistry,
     messenger: BinaryMessenger
 ) {
-    private val channel = MethodChannel(messenger, "anas_tv/texture_player")
+    private val channel = MethodChannel(messenger, "plustv/texture_player")
     private val mainHandler = Handler(Looper.getMainLooper())
     private var surfaceEntry: TextureRegistry.SurfaceTextureEntry? = null
     private var videoSurface: Surface? = null
@@ -520,7 +520,7 @@ class Media3PlayerView(
 ) : PlatformView {
     private val root = FrameLayout(appContext)
     private val playerView = PlayerView(appContext)
-    private val channel = MethodChannel(messenger, "anas_tv/media3_player_$viewId")
+    private val channel = MethodChannel(messenger, "plustv/media3_player_$viewId")
     private var player: ExoPlayer? = null
     private var userSelectedVideoTrack = false
     private val mainHandler = Handler(Looper.getMainLooper())
