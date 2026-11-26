@@ -1474,7 +1474,7 @@ class _PlusTvHomePageState extends State<PlusTvHomePage> {
     final gridWidget = LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final columns = widget.isTv ? 8 : (width >= 700 ? 6 : 4);
+        final columns = widget.isTv ? 9 : (width >= 700 ? 6 : 4);
         final spacing = widget.isTv ? 7.0 : (width >= 700 ? 10.0 : 8.0);
         return GridView.builder(
           controller: _gridScroll,
@@ -1487,7 +1487,7 @@ class _PlusTvHomePageState extends State<PlusTvHomePage> {
             crossAxisCount: columns,
             mainAxisSpacing: spacing,
             crossAxisSpacing: spacing,
-            childAspectRatio: widget.isTv ? 0.88 : 0.86,
+            childAspectRatio: widget.isTv ? 0.92 : 0.86,
           ),
           itemCount: filtered.length,
           itemBuilder: (context, index) => RepaintBoundary(
@@ -2072,7 +2072,7 @@ class _PlusTvSearchScreenState extends State<PlusTvSearchScreen> {
                         : LayoutBuilder(
                             builder: (context, constraints) {
                               final width = constraints.maxWidth;
-                              final columns = widget.isTv ? 8 : (width >= 700 ? 6 : 4);
+                              final columns = widget.isTv ? 9 : (width >= 700 ? 6 : 4);
                               final spacing = widget.isTv ? 7.0 : (width >= 700 ? 10.0 : 8.0);
                               return GridView.builder(
                                 controller: _gridScroll,
@@ -2085,7 +2085,7 @@ class _PlusTvSearchScreenState extends State<PlusTvSearchScreen> {
                                   crossAxisCount: columns,
                                   mainAxisSpacing: spacing,
                                   crossAxisSpacing: spacing,
-                                  childAspectRatio: widget.isTv ? 0.88 : 0.86,
+                                  childAspectRatio: widget.isTv ? 0.92 : 0.86,
                                 ),
                                 itemCount: results.length,
                                 itemBuilder: (context, index) => RepaintBoundary(
@@ -4203,7 +4203,7 @@ class _ChannelCardState extends State<_ChannelCard> {
         color: Colors.transparent,
         elevation: showTvFocus ? 24 : 0,
         child: AnimatedScale(
-        scale: showTvFocus ? 1.16 : 1.0,
+        scale: 1.0,
         duration: const Duration(milliseconds: 85),
         curve: Curves.easeOut,
         child: Focus(
