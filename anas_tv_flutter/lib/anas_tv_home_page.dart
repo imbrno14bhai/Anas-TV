@@ -1474,20 +1474,20 @@ class _PlusTvHomePageState extends State<PlusTvHomePage> {
     final gridWidget = LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final columns = widget.isTv ? 9 : (width >= 700 ? 6 : 4);
-        final spacing = widget.isTv ? 7.0 : (width >= 700 ? 10.0 : 8.0);
+        final columns = widget.isTv ? 8 : (width >= 700 ? 6 : 4);
+        final spacing = widget.isTv ? 5.0 : (width >= 700 ? 10.0 : 8.0);
         return GridView.builder(
           controller: _gridScroll,
           cacheExtent: 260,
           clipBehavior: Clip.none,
           padding: widget.isTv
-              ? const EdgeInsets.fromLTRB(12, 10, 12, 14)
+              ? const EdgeInsets.fromLTRB(8, 8, 8, 12)
               : EdgeInsets.fromLTRB(spacing, spacing, spacing, spacing + 8),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columns,
             mainAxisSpacing: spacing,
             crossAxisSpacing: spacing,
-            childAspectRatio: widget.isTv ? 0.92 : 0.86,
+            childAspectRatio: widget.isTv ? 0.86 : 0.86,
           ),
           itemCount: filtered.length,
           itemBuilder: (context, index) => RepaintBoundary(
@@ -2072,20 +2072,20 @@ class _PlusTvSearchScreenState extends State<PlusTvSearchScreen> {
                         : LayoutBuilder(
                             builder: (context, constraints) {
                               final width = constraints.maxWidth;
-                              final columns = widget.isTv ? 9 : (width >= 700 ? 6 : 4);
-                              final spacing = widget.isTv ? 7.0 : (width >= 700 ? 10.0 : 8.0);
+                              final columns = widget.isTv ? 8 : (width >= 700 ? 6 : 4);
+                              final spacing = widget.isTv ? 5.0 : (width >= 700 ? 10.0 : 8.0);
                               return GridView.builder(
                                 controller: _gridScroll,
                                 cacheExtent: 260,
                                 clipBehavior: Clip.none,
                                 padding: widget.isTv
-                                    ? const EdgeInsets.fromLTRB(12, 10, 12, 14)
+                                    ? const EdgeInsets.fromLTRB(8, 8, 8, 12)
                                     : EdgeInsets.fromLTRB(spacing, spacing, spacing, spacing + 8),
                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: columns,
                                   mainAxisSpacing: spacing,
                                   crossAxisSpacing: spacing,
-                                  childAspectRatio: widget.isTv ? 0.92 : 0.86,
+                                  childAspectRatio: widget.isTv ? 0.86 : 0.86,
                                 ),
                                 itemCount: results.length,
                                 itemBuilder: (context, index) => RepaintBoundary(
